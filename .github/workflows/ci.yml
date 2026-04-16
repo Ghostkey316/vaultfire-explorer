@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate structure
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f explorer.js
+          test -f governance.js
+          echo "All files present ✓"
+
+      - name: Check for leaked secrets
+        run: |
+          ! grep -r "npm_" . --include="*.js" --include="*.html"
+          ! grep -rP '[0-9a-f]{64}' . --include="*.js" --include="*.html"
+          echo "No secrets found ✓"
