@@ -45,12 +45,12 @@ const PARTNERSHIP_ABI = [
   'function totalActiveBondValue() view returns (uint256)',
   'function getBondsByParticipant(address) view returns (uint256[])'
 ];
-const PARTNERSHIP_BOND_ABI = ['function bonds(uint256) view returns (uint256 bondId, address creator, address aiAgent, string partnershipType, uint256 stake, uint256 createdAt, bool active, uint256 lastReviewTimestamp, uint8 currentHealth)'];
+const PARTNERSHIP_BOND_ABI = ['function bonds(uint256) view returns (uint256 bondId, address human, address aiAgent, string partnershipType, uint256 stakeAmount, uint256 createdAt, uint256 distributionRequestedAt, bool distributionPending, bool active, uint256 distributionCount)'];
 const ACCOUNTABILITY_ABI = [
   'function nextBondId() view returns (uint256)',
   'function totalActiveBondValue() view returns (uint256)'
 ];
-const ACCOUNTABILITY_BOND_ABI = ['function bonds(uint256) view returns (uint256 bondId, address creator, string companyName, uint256 quarterlyRevenue, uint256 stake, uint256 createdAt, bool active, uint256 maturityDate, uint8 bondHealth)'];
+const ACCOUNTABILITY_BOND_ABI = ['function bonds(uint256) view returns (uint256 bondId, address aiCompany, string companyName, uint256 quarterlyRevenue, uint256 stakeAmount, uint256 createdAt, uint256 distributionRequestedAt, bool distributionPending, bool active, uint256 distributionCount)'];
 const REPUTATION_ABI = [
   'function getReputation(address) view returns (uint256 averageRating, uint256 totalFeedbacks, uint256 verifiedFeedbacks, uint256 lastUpdated)'
 ];
@@ -95,7 +95,7 @@ async function fetchChainData(key, config) {
         partnerBonds.push({
           id: i, chain: key, creator: bond[1], aiAgent: bond[2],
           type: bond[3], stake: bond[4], createdAt: Number(bond[5]),
-          active: bond[6], health: Number(bond[8])
+          active: bond[8], distributionCount: Number(bond[9])
         });
       } catch (e) { /* skip unreadable bonds */ }
     }
@@ -108,7 +108,7 @@ async function fetchChainData(key, config) {
         acctBonds.push({
           id: i, chain: key, creator: bond[1], companyName: bond[2],
           quarterlyRevenue: bond[3], stake: bond[4], createdAt: Number(bond[5]),
-          active: bond[6], maturityDate: Number(bond[7]), health: Number(bond[8])
+          active: bond[8], distributionCount: Number(bond[9])
         });
       } catch (e) { /* skip */ }
     }
