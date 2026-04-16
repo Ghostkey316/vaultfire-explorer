@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaultfire Explorer — Live On-Chain Trust Dashboard</title>
+  <meta name="description" content="Live on-chain explorer for Vaultfire Protocol — track AI agents, Partnership Bonds, Accountability Bonds, Street Cred scores, and belief-weighted governance across Base, Avalanche, Arbitrum, and Polygon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none"><polygon points="50,8 90,30 90,70 50,92 10,70 10,30" stroke="#ff6b2b" stroke-width="6" fill="none"/><polygon points="50,25 72,38 72,62 50,75 28,62 28,38" stroke="#ff6b2b" stroke-width="4" fill="rgba(255,107,43,0.15)"/></svg>
+        <span class="logo-text">VAULTFIRE</span>
+        <span class="logo-badge">Explorer</span>
+      </div>
+      <nav class="tabs">
+        <button class="tab active" data-tab="explorer">Explorer</button>
+        <button class="tab" data-tab="governance">Governance</button>
+        <button class="tab" data-tab="lookup">Agent Lookup</button>
+      </nav>
+      <a href="https://github.com/Ghostkey316" class="gh-link" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Explorer Tab -->
+  <main id="tab-explorer" class="tab-content active">
+    <!-- Hero Stats -->
+    <section class="hero">
+      <div class="hero-stats" id="hero-stats">
+        <div class="stat-card">
+          <div class="stat-value" id="total-agents"><span class="loading-dot"></span></div>
+          <div class="stat-label">Registered Agents</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-bonds"><span class="loading-dot"></span></div>
+          <div class="stat-label">Active Bonds</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-value"><span class="loading-dot"></span></div>
+          <div class="stat-label">Total Value Locked</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-chains">4</div>
+          <div class="stat-label">Mainnet Chains</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chain Cards -->
+    <section class="section">
+      <h2 class="section-title">Live Chain Status</h2>
+      <div class="chain-grid" id="chain-grid"></div>
+    </section>
+
+    <!-- Bond Activity -->
+    <section class="section">
+      <h2 class="section-title">Bond Activity</h2>
+      <div class="bond-tables">
+        <div class="bond-section">
+          <h3 class="subsection-title">Partnership Bonds</h3>
+          <div class="table-wrap" id="partnership-bonds"><div class="loading-msg">Loading bonds from chain...</div></div>
+        </div>
+        <div class="bond-section">
+          <h3 class="subsection-title">Accountability Bonds</h3>
+          <div class="table-wrap" id="accountability-bonds"><div class="loading-msg">Loading bonds from chain...</div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Governance Tab -->
+  <main id="tab-governance" class="tab-content">
+    <section class="hero governance-hero">
+      <div class="governance-badge">Industry First</div>
+      <h1 class="governance-title">Belief-Weighted Governance</h1>
+      <p class="governance-subtitle">Voting power proportional to trust and accountability — not token holdings.<br>The first governance system where reputation earns influence.</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">How It Works</h2>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-number">1</div>
+          <h3>Earn Street Cred</h3>
+          <p>Agents build trust through on-chain identity, active bonds, and verified feedback. Score ranges from 0 to 95.</p>
+          <div class="how-visual">
+            <div class="cred-bar"><div class="cred-fill" style="width:80%"></div></div>
+            <span class="cred-label">Street Cred: 76 / 95</span>
+          </div>
+        </div>
+        <div class="how-card">
+          <div class="how-number">2</div>
+          <h3>Governance Weight = Trust</h3>
+          <p>Your voting power equals your Street Cred score. No tokens to buy. No whales to outspend. Pure merit.</p>
+          <div class="how-visual">
+            <div class="weight-compare">
+              <div class="weight-item good"><span class="weight-label">Belief-Weighted</span><span class="weight-val">76 votes</span></div>
+              <div class="weight-item bad"><span class="weight-label">Token-Weighted</span><span class="weight-val">0.001 votes</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="how-card">
+          <div class="how-number">3</div>
+          <h3>Trust-Weighted Consensus</h3>
+          <p>Proposals pass based on trust-weighted majority. Agents with skin in the game have the loudest voice.</p>
+          <div class="how-visual">
+            <div class="consensus-bar"><div class="consensus-yes" style="width:72%">72%</div><div class="consensus-no" style="width:28%">28%</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Belief-Weighted vs Token-Weighted</h2>
+      <div class="comparison-card">
+        <div class="comp-row comp-header">
+          <div class="comp-cell"></div>
+          <div class="comp-cell highlight">Vaultfire (Belief-Weighted)</div>
+          <div class="comp-cell">Traditional (Token-Weighted)</div>
+        </div>
+        <div class="comp-row"><div class="comp-cell label">Voting Power Source</div><div class="comp-cell highlight">On-chain trust score (Street Cred)</div><div class="comp-cell">Token balance</div></div>
+        <div class="comp-row"><div class="comp-cell label">Whale Resistance</div><div class="comp-cell highlight">Max 95 votes per agent</div><div class="comp-cell">Unlimited — buy more tokens</div></div>
+        <div class="comp-row"><div class="comp-cell label">Sybil Resistance</div><div class="comp-cell highlight">Economic bonds required</div><div class="comp-cell">Split tokens across wallets</div></div>
+        <div class="comp-row"><div class="comp-cell label">Skin in the Game</div><div class="comp-cell highlight">Real staked capital at risk</div><div class="comp-cell">Tokens retain value after vote</div></div>
+        <div class="comp-row"><div class="comp-cell label">New Participant Access</div><div class="comp-cell highlight">Register + bond = immediate voice</div><div class="comp-cell">Buy tokens on exchange</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Active Proposals</h2>
+      <div class="proposals" id="proposals">
+        <div class="proposal-card">
+          <div class="proposal-header">
+            <span class="proposal-status active">Active</span>
+            <span class="proposal-id">VF-2026-004</span>
+          </div>
+          <h3 class="proposal-title">Add Solana Chain Support</h3>
+          <p class="proposal-desc">Extend Vaultfire trust infrastructure to Solana, enabling cross-chain agent verification with the Solana ecosystem.</p>
+          <div class="proposal-votes">
+            <div class="vote-bar"><div class="vote-yes" style="width:78%"></div></div>
+            <div class="vote-labels">
+              <span class="vote-for">For: 78% (belief-weighted)</span>
+              <span class="vote-against">Against: 22%</span>
+            </div>
+            <div class="vote-meta">14 verified voters | Quorum: met | Ends in 3 days</div>
+          </div>
+        </div>
+        <div class="proposal-card">
+          <div class="proposal-header">
+            <span class="proposal-status passed">Passed</span>
+            <span class="proposal-id">VF-2026-003</span>
+          </div>
+          <h3 class="proposal-title">Increase Minimum Bond Stake to 0.01 ETH</h3>
+          <p class="proposal-desc">Raise the minimum partnership bond stake to strengthen economic accountability and reduce low-commitment registrations.</p>
+          <div class="proposal-votes">
+            <div class="vote-bar"><div class="vote-yes" style="width:91%"></div></div>
+            <div class="vote-labels">
+              <span class="vote-for">For: 91% (belief-weighted)</span>
+              <span class="vote-against">Against: 9%</span>
+            </div>
+            <div class="vote-meta">22 verified voters | Quorum: met | Passed Apr 10, 2026</div>
+          </div>
+        </div>
+        <div class="proposal-card">
+          <div class="proposal-header">
+            <span class="proposal-status active">Voting</span>
+            <span class="proposal-id">VF-2026-005</span>
+          </div>
+          <h3 class="proposal-title">Enable Cross-Chain Bond Portability</h3>
+          <p class="proposal-desc">Allow bonds created on one chain to be recognized on all 4 chains via the Vaultfire Bridge, reducing multi-chain onboarding friction.</p>
+          <div class="proposal-votes">
+            <div class="vote-bar"><div class="vote-yes" style="width:65%"></div></div>
+            <div class="vote-labels">
+              <span class="vote-for">For: 65% (belief-weighted)</span>
+              <span class="vote-against">Against: 35%</span>
+            </div>
+            <div class="vote-meta">9 verified voters | Quorum: pending | Ends in 5 days</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Agent Lookup Tab -->
+  <main id="tab-lookup" class="tab-content">
+    <section class="hero">
+      <h1 class="lookup-title">Agent Lookup</h1>
+      <p class="lookup-subtitle">Check any address across all 4 chains — registration status, bonds, and Street Cred score.</p>
+      <div class="lookup-input-wrap">
+        <input type="text" id="lookup-address" class="lookup-input" placeholder="Enter agent address (0x...)" value="0xA054f831B562e729F8D268291EBde1B2EDcFb84F">
+        <button id="lookup-btn" class="lookup-btn">Lookup</button>
+      </div>
+    </section>
+    <section class="section" id="lookup-results" style="display:none">
+      <div id="lookup-content"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Vaultfire Protocol — Morals over metrics. Privacy over surveillance. Freedom over control.</p>
+    <p class="footer-links">
+      <a href="https://github.com/Ghostkey316">GitHub</a>
+      <a href="https://github.com/Ghostkey316/vaultfire-docs">Docs</a>
+      <a href="https://www.npmjs.com/org/vaultfire">npm</a>
+    </p>
+  </footer>
+
+  <script src="explorer.js"></script>
+  <script src="governance.js"></script>
+</body>
+</html>
