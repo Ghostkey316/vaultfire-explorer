@@ -2,6 +2,8 @@
 
 Live on-chain dashboard for the **Vaultfire Protocol** — track AI agents, Partnership Bonds, Accountability Bonds, Street Cred scores, and belief-weighted governance across Base, Avalanche, Arbitrum, and Polygon.
 
+> **⚠️ Alpha Software** — Vaultfire Protocol is live on mainnet and fully functional, but it is in **alpha**. Smart contracts have **not been formally audited** by a third-party security firm. APIs and interfaces may change. Use at your own risk. See [LICENSE](./LICENSE) for warranty disclaimers.
+
 ## Features
 
 - **Live Chain Status** — real-time agent counts, bond counts, and TVL from all 4 mainnet chains
